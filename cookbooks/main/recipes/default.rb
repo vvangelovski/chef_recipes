@@ -2,9 +2,17 @@ execute "update-apt" do
     command "sudo apt-get update"
 end
 
-%w{ack-grep aptitude vim git-core subversion libxml2-dev}.each do |pkg|
+%w{ack-grep aptitude vim git-core subversion mercurial libxml2-dev}.each do |pkg|
   package pkg do
     action :install
+  end
+end
+
+if node[:gis]
+  %w{binutils gdal-bin}.each do |pkg|
+      package pkg do
+        action :install
+      end
   end
 end
 
